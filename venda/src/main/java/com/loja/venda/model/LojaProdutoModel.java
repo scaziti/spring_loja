@@ -4,9 +4,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "tb_produto")
@@ -23,6 +26,10 @@ public class LojaProdutoModel
 	@NotNull
 	@Size(min = 10, max = 300)
 	private String descricaoProduto;
+	
+	@ManyToOne
+	@JsonIgnoreProperties("produto")
+	private LojaCategoriaModel categoria;
 	
 	@NotNull
 	private Double preco;
@@ -79,6 +86,14 @@ public class LojaProdutoModel
 
 	public void setAtivo(Boolean ativo) {
 		this.ativo = ativo;
+	}
+
+	public LojaCategoriaModel getCategoria() {
+		return categoria;
+	}
+
+	public void setCategoria(LojaCategoriaModel categoria) {
+		this.categoria = categoria;
 	}
 
 }
