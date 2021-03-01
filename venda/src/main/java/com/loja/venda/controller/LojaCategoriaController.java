@@ -32,4 +32,12 @@ public class LojaCategoriaController
 	{
 		return ResponseEntity.ok(this.repository.findAllByNomeCategoriaContainingIgnoreCase(nomeCategoria));
 	}
+	
+	@GetMapping("/{idCategoria}")
+	public ResponseEntity<LojaCategoriaModel> GetById(@PathVariable Long idCategoria)
+	{
+		return this.repository.findById(idCategoria)
+				.map(resp -> ResponseEntity.ok(resp))
+				.orElse(ResponseEntity.notFound().build());
+	}
 }
